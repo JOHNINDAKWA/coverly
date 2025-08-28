@@ -1,0 +1,205 @@
+.extract .container {
+  width: min(1100px, 92vw);
+  margin-inline: auto;
+}
+
+/* header */
+.xr-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.xr-head h2 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* grid */
+.xr-grid {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 980px) {
+  .xr-grid {
+    grid-template-columns: 0.95fr 1.05fr;
+  }
+}
+
+/* cards */
+.card {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: var(--r-16);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+/* snapshot */
+.xr-snapshot {
+  background: var(--panel);
+}
+.snap-top {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--brand-600), var(--teal-600));
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.who .big {
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: var(--text);
+}
+.who .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border) !important;
+  background: var(--surface-1) !important;
+  color: var(--text);
+}
+.chip input {
+  border: none;
+  background: transparent;
+  outline: none;
+  min-width: 180px;
+}
+
+/* skills */
+.snap-skills .title,
+.snap-jd .title {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+}
+.skill-pill input {
+  border: none;
+  background: transparent;
+  outline: none;
+  min-width: 80px;
+}
+.pill-x {
+  border: none;
+  background: transparent;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.snap-jd .jd {
+  border: 1px dashed var(--border);
+  border-radius: var(--r-12);
+  padding: 10px;
+  background: var(--surface-1);
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+/* experience */
+.jobs {
+  display: grid;
+  gap: 10px;
+}
+.job-card {
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  border-radius: var(--r-14);
+  padding: 10px;
+}
+.row {
+  display: grid;
+  gap: 10px;
+}
+.row.two {
+  grid-template-columns: 1fr;
+}
+.row.three {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .row.two {
+    grid-template-columns: 1fr 1fr;
+  }
+  .row.three {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--text);
+}
+input,
+textarea {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: var(--r-12);
+  padding: 10px;
+  font: inherit;
+  box-shadow: var(--shadow);
+}
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* sticky actions */
+.extract__actions {
+  position: sticky;
+  bottom: 10px;
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--r-12);
+  border: 1px solid var(--border);
+  background: var(--panel);
+  font-weight: 700;
+}
+.btn-primary {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--brand-600), var(--teal-600));
+}

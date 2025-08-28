@@ -1,0 +1,6 @@
+/* src/pages/Generate/Generate.css */
+.drafts { display: grid; gap: 12px; }
+.draft { border: 1px solid var(--border); background: var(--panel); border-radius: var(--r-16); padding: 12px; box-shadow: var(--shadow); }
+.draft pre { white-space: pre-wrap;  line-height: 1.5; }
+.actions { display: flex; justify-content: flex-end; margin-top: 8px; }
+.btn { padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--r-12); background: var(--panel); font-weight: 700; }

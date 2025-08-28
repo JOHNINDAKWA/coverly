@@ -1,0 +1,149 @@
+/* Sticky subheader stepper */
+:root {
+  --header-sticky-offset: 64px; /* adjust if your header is taller/shorter */
+}
+
+.cv-stepper {
+  position: sticky;
+  top: var(--header-sticky-offset);
+  z-index: 30;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  /* subtle glow backdrop for premium feel */
+  background-image:
+    radial-gradient(900px 300px at 10% 0%, color-mix(in srgb, var(--brand-600) 6%, transparent), transparent),
+    radial-gradient(900px 300px at 90% 100%, color-mix(in srgb, var(--teal-600) 6%, transparent), transparent);
+}
+
+.cv-stepper__inner {
+  width: min(1200px, 92vw);
+  margin-inline: auto;
+  padding: 10px 0 12px;
+  position: relative;
+}
+
+/* track */
+.cv-stepper__track {
+  height: 4px;
+  background: var(--bg-soft);
+  border-radius: 999px;
+  overflow: hidden;
+  position: absolute;
+  left: 0; right: 0;
+  top: 40%;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+.cv-stepper__progress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand-600), var(--teal-600));
+}
+
+/* steps list */
+.cv-stepper__list {
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* each step */
+.cv-step {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+/* dot button */
+.cv-step__dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transition: transform .08s ease, border-color .2s ease, background .2s ease, color .2s ease;
+}
+.cv-step__dot:hover { transform: translateY(-1px); }
+.cv-step__dot svg { width: 18px; height: 18px; opacity: .9; }
+.cv-step__num {
+  position: absolute;
+  bottom: -14px;
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+/* states */
+.cv-step__dot.is-active {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(135deg, var(--brand-600), var(--teal-600)) border-box;
+}
+.cv-step__dot.is-done {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--brand-600), var(--teal-600));
+}
+.cv-step__dot.is-locked {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+/* label */
+.cv-step__label {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* compact mobile bar */
+.cv-stepper__mini {
+  display: none;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border);
+  margin-top: 6px;
+  align-items: center;
+  gap: 10px;
+}
+.cv-stepper__mini-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  font-weight: 800;
+  font-size: 12px;
+}
+.cv-stepper__mini-label {
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+/* Responsive: use compact bar + horizontal scroll for steps on narrow screens */
+@media (max-width: 720px) {
+  .cv-stepper__list {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 12px;
+    padding-bottom: 10px;
+  }
+
+  .cv-stepper__track {
+    top: 30%;
+  }
+  .cv-stepper__list::-webkit-scrollbar { display: none; }
+
+  .cv-step__label { display: none; } /* keep UI clean on small screens */
+  .cv-stepper__mini { display: flex; }
+}

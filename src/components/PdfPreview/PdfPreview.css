@@ -1,0 +1,6 @@
+.pdf-frame {
+  width: 100%; height: min(80vh, 900px);
+  border: 1px solid var(--border); border-radius: var(--r-14);
+  background: #fff;
+  box-shadow: var(--shadow);
+}

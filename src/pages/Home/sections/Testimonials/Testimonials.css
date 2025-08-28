@@ -1,0 +1,163 @@
+/* ===== Epic full-bleed background with glow ===== */
+.t-section {
+  position: relative;
+  padding: 44px 0 64px;
+  border-bottom: 1px solid var(--border);
+  overflow: clip;
+  isolation: isolate;
+}
+
+.t-section::before {
+  content: "";
+  position: absolute;
+  inset: -10% -20%;
+  background:
+    radial-gradient(1100px 520px at 10% 10%, color-mix(in srgb, var(--brand-600) 16%, transparent), transparent),
+    radial-gradient(1000px 520px at 90% 110%, color-mix(in srgb, var(--teal-600) 16%, transparent), transparent);
+  filter: blur(10px) saturate(120%);
+  opacity: .8;
+  z-index: -1;
+}
+
+/* Local container */
+.t-section .container { width: min(1200px, 92vw); margin-inline: auto; }
+
+/* ===== Header ===== */
+.t-head {
+  display: grid;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.t-title h2 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+  line-height: 1.15;
+}
+
+.g-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  box-shadow: var(--shadow);
+  justify-self: start;
+}
+.g-icon {
+  display: grid; place-items: center;
+  width: 28px; height: 28px; border-radius: 999px;
+  background: conic-gradient(#ea4335 0 25%, #fbbc05 0 50%, #34a853 0 75%, #4285f4 0);
+  color: #fff;
+}
+.g-copy { display: inline-flex; align-items: center; gap: 10px; }
+.g-copy strong { font-size: 1.05rem; }
+.g-count { color: var(--text-dim); }
+
+/* Stars */
+.t-stars { display: inline-flex; gap: 4px; color: #fbbf24; } /* amber-400 */
+
+/* Responsive header */
+@media (min-width: 900px) {
+  .t-head {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+}
+
+/* ===== Cards (mobile snap) ===== */
+.t-cards {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 86%;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 6px 2px 6px 2px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 10px;
+}
+
+.t-card {
+  scroll-snap-align: start;
+  position: relative;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  box-shadow: 0 28px 60px rgba(0,0,0,.16);
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+  backdrop-filter: saturate(140%) blur(4px);
+  min-height: 190px;
+}
+
+/* quote mark */
+.qmark {
+  position: absolute;
+  top: 12px; right: 12px;
+  opacity: .18;
+  width: 22px; height: 22px;
+}
+
+/* card header */
+.t-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.avatar {
+  display: grid; place-items: center;
+  width: 44px; height: 44px; border-radius: 12px;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(135deg, var(--brand-600), var(--teal-600));
+  color: #fff; font-weight: 800;
+  box-shadow: var(--shadow);
+}
+.meta .who { line-height: 1.15; }
+.meta .when { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+
+.t-text { color: var(--text); }
+.t-foot {
+  display: flex; align-items: center; gap: 8px; margin-top: 4px;
+}
+.verify {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--text-dim); font-weight: 700; font-size: .92rem;
+}
+
+/* Desktop grid */
+@media (min-width: 980px) {
+  .t-cards {
+    display: grid;
+    grid-auto-flow: initial;
+    grid-auto-columns: initial;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    overflow: visible;
+  }
+}
+
+/* ===== CTA buttons ===== */
+.t-cta {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.t-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 10px; padding: 12px 16px; border-radius: 14px; border: 1px solid var(--border);
+  font-weight: 800; box-shadow: var(--shadow);
+  transition: transform .08s ease, filter .2s ease;
+}
+.t-btn:hover { transform: translateY(-1px); }
+.t-btn--primary { color: #fff; border: none; background: linear-gradient(135deg, var(--brand-600), var(--teal-600)); }
+.t-btn--ghost   { background: var(--bg-soft); color: var(--text); }

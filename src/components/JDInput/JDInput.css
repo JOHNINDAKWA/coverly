@@ -1,0 +1,58 @@
+.jdinput { display: grid; gap: 8px; }
+
+.jdinput__head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+}
+.jdinput label {
+  font-weight: 800; letter-spacing: -.01em;
+}
+
+.jdinput__tools { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+.tool {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 12px; border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-weight: 700;
+}
+.tool:hover { filter: brightness(1.02); }
+
+.jdinput__box {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: 14px;
+  overflow: clip;
+  box-shadow: var(--shadow);
+}
+.jdinput textarea {
+  width: 100%;
+  display: block;
+  resize: vertical;
+  min-height: 160px;
+  border: none;
+  outline: none;
+  padding: 12px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  line-height: 1.4;
+}
+.jdinput textarea::placeholder { color: var(--text-dim); }
+
+.jdinput__meter {
+  height: 4px;
+  background: var(--bg-soft);
+}
+.jdinput__meter span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand-600), var(--teal-600));
+}
+
+.jdinput__hint {
+  display: flex; justify-content: flex-end; padding: 8px 10px;
+}
+
+.jdinput__note { font-size: .92rem; }
