@@ -1,0 +1,316 @@
+/* unique namespace: accx- */
+
+:root {
+  --accx-ink: #0f172a;
+  --accx-dim: #64748b;
+  --accx-panel: #ffffff;
+  --accx-surface: #f7f9fc;
+  --accx-line: #e5e7eb;
+  --accx-brand: #6366f1;
+  --accx-brand-2: #0ea5a5;
+  --accx-radius: 16px;
+}
+
+/* Themes (affect gradients / accents) */
+.accx-root[data-accx-theme="sunset"] {
+  --accx-brand: #f59e0b;
+  --accx-brand-2: #ef4444;
+}
+.accx-root[data-accx-theme="teal"] {
+  --accx-brand: #0ea5a5;
+  --accx-brand-2: #22c55e;
+}
+.accx-root[data-accx-theme="violet"] {
+  --accx-brand: #8b5cf6;
+  --accx-brand-2: #06b6d4;
+}
+.accx-root[data-accx-theme="slate"] {
+  --accx-brand: #334155;
+  --accx-brand-2: #64748b;
+}
+
+.accx-root {
+  color: var(--accx-ink);
+  background: linear-gradient(180deg, var(--accx-surface), #fff 30%);
+}
+
+/* cover */
+.accx-cover {
+  position: relative;
+  min-height: 220px;
+  background: linear-gradient(135deg, var(--accx-brand), var(--accx-brand-2));
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid var(--accx-line);
+}
+.accx-cover-sheen {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1000px 300px at -10% -20%, rgba(255,255,255,.38), transparent 50%),
+    radial-gradient(800px 300px at 120% 120%, rgba(255,255,255,.25), transparent 60%);
+}
+.accx-head {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: end;
+  gap: 18px;
+  padding: 28px min(5vw, 48px);
+}
+.accx-avatar {
+  width: 104px;
+  height: 104px;
+  border-radius: 999px;
+  border: 4px solid #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: #111;
+  color: #fff;
+  font-weight: 800;
+  font-size: 36px;
+}
+.accx-avatar img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.accx-id .accx-name { margin: 0; font-size: clamp(1.6rem, 3.8vw, 2.4rem); letter-spacing: -.02em; color: #0b1020; }
+.accx-id .accx-title { margin: 4px 0 0; color: #111826cc; font-weight: 600; }
+.accx-publiclink { display:flex; align-items:center; gap:10px; margin-top: 6px; color:#111827cc; }
+.accx-publiclink span { background: rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.06); padding:6px 10px; border-radius: 10px; }
+.accx-copied { color:#064e3b; font-weight:700; }
+
+.accx-name-input, .accx-title-input, .accx-username {
+  width: min(560px, 80vw);
+  border: 1px solid var(--accx-line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 6px 24px rgba(0,0,0,.08);
+  margin-bottom: 8px;
+}
+
+/* edit bar */
+.accx-editbar {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px min(5vw,48px) 18px;
+}
+.accx-left { display:flex; gap: 12px; align-items:center; flex-wrap: wrap; }
+.accx-right { display:flex; gap: 10px; align-items:center; flex-wrap: wrap; }
+
+.accx-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 14px; border-radius:12px; border:1px solid var(--accx-line);
+  background:#fff; cursor:pointer;
+}
+.accx-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.08); }
+.accx-btn-primary { background: linear-gradient(135deg, var(--accx-brand), var(--accx-brand-2)); color:#fff; border-color: transparent; }
+.accx-btn-ghost { background: rgba(255,255,255,.85); }
+
+.accx-icon { display:grid; place-items:center; width:32px; height:32px; border-radius:10px; border:1px solid var(--accx-line); background:#fff; cursor:pointer; }
+.accx-icon:hover { background:#f7fafc; }
+
+.accx-file { display:inline-grid; grid-auto-flow: column; gap:8px; align-items:center; padding:8px 10px; border:1px dashed var(--accx-line); border-radius:10px; background: rgba(255,255,255,.85); cursor:pointer; margin-bottom: 5px;}
+.accx-file input { display:none; }
+
+.accx-theme { display:inline-grid; grid-auto-flow: column; gap:10px; align-items:center; padding:6px 8px; border:1px solid var(--accx-line); border-radius:10px; background:#fff; }
+.accx-input, .accx-textarea, .accx-username { border:1px solid var(--accx-line); border-radius:12px; background:#fff; padding:10px 12px; margin-bottom: 10px;}
+
+/* edit panels */
+.accx-edit-panels { padding: 16px min(5vw, 48px) 28px; display:grid; gap:12px; }
+.accx-card {
+  background:#fff; border:1px solid var(--accx-line); border-radius: var(--accx-radius);
+  padding:16px; box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+.accx-sec-title { display:flex; align-items:center; gap:10px; font-size: 14px; text-transform: uppercase; letter-spacing:.14em; margin:0 0 10px; color:#0b1020; }
+.accx-row { display:grid; gap:10px; grid-template-columns: repeat(3, minmax(0,1fr)); }
+.accx-grid { display:grid; gap:10px; grid-template-columns: repeat(2, minmax(0,1fr)); }
+@media (max-width: 860px) { .accx-row, .accx-grid { grid-template-columns: 1fr; } }
+.accx-textarea { width:100%; min-height: 110px; }
+
+/* skill editor */
+.accx-skill-editor { display:grid; gap:10px; }
+.accx-tags { display:flex; flex-wrap:wrap; gap:8px; }
+.accx-tag { background:#f8fafc; border:1px solid var(--accx-line); border-radius:999px; padding:6px 10px; display:inline-flex; align-items:center; gap:6px; }
+.accx-chip-x { border:none; background:transparent; display:grid; place-items:center; cursor:pointer; }
+
+/* list editor items */
+.accx-list { display:grid; gap:12px; }
+.accx-item { border:1px dashed var(--accx-line); border-radius:12px; padding:12px; background:#fcfdff; }
+.accx-item-actions { display:flex; justify-content:flex-end; }
+
+/* main public layout */
+.accx-main { padding: 16px min(5vw, 48px) 48px; display:grid; gap:12px; }
+.accx-summary { margin: 6px 0 10px; color: var(--accx-dim); }
+.accx-kv { display:flex; flex-wrap:wrap; gap:10px; color: var(--accx-dim); }
+.accx-muted { color: var(--accx-dim); }
+
+.accx-block { padding:10px 0; border-top:1px solid var(--accx-line); }
+.accx-block:first-child { border-top: none; }
+.accx-block-hd { display:flex; justify-content:space-between; gap:10px; }
+.accx-dates { color: var(--accx-dim); font-weight: 600; }
+.accx-dim { color: var(--accx-dim); }
+
+/* projects */
+.accx-projects { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:12px; }
+.accx-project { border:1px solid var(--accx-line); border-radius: 14px; overflow:hidden; background:#fff; box-shadow: 0 6px 20px rgba(0,0,0,.05); color:inherit; }
+.accx-project img, .accx-project-ph { width:100%; height:150px; object-fit: cover; background: #e5e7eb; }
+.accx-project-body { padding: 10px; }
+.accx-project-hd { display:flex; align-items:center; justify-content:space-between; }
+.accx-links { list-style:none; padding:0; margin:0; display:grid; gap:8px; }
+.accx-links li { display:flex; gap:10px; justify-content:space-between; border:1px solid var(--accx-line); background:#fff; padding:8px 10px; border-radius:10px; }
+
+/* section controls */
+.accx-sections-ctl { display:flex; gap:10px; flex-wrap:wrap; }
+.accx-secchip { display:flex; gap:8px; align-items:center; border:1px solid var(--accx-line); background:#fff; padding:6px 8px; border-radius:12px; }
+.accx-secchip.is-off { opacity:.65; }
+.accx-secbtns { display:flex; gap:6px; }
+.accx-secname { font-weight: 700; text-transform: capitalize; }
+
+
+/* ---------- container & max-width ---------- */
+
+.accx-wrap {
+  width: min(1200px, 92vw);
+  margin-inline: auto;
+  /* vertical spacing control for major blocks */
+  padding-inline: 0; /* keep inner sections flush */
+}
+
+/* Let cover remain full-bleed, but constrain its *inner* content */
+.accx-cover .accx-wrap {
+  padding-block: 20px; /* spacing inside the cover */
+}
+
+/* Head + editbar now flow inside the wrap */
+.accx-head {
+  padding: 0; /* we’ll let the wrap manage side padding */
+}
+.accx-editbar {
+  padding: 14px 0 18px; /* remove side padding; wrap contains it */
+}
+
+/* Edit panels + main get wrapped, centered */
+.accx-edit-panels,
+.accx-main {
+  margin: 16px 0 40px;
+}
+
+/* ---------- two-column layout (optional) ---------- */
+
+/* Add .accx-main--cols to enable; single column by default */
+.accx-main--cols {
+  column-gap: 16px;
+}
+
+@media (min-width: 1080px) {
+  .accx-main--cols {
+    /* CSS columns for waterfall-style two-column layout */
+    columns: 2;
+    column-gap: 18px;
+  }
+
+  /* Make each card behave nicely in columns */
+  .accx-main--cols .accx-card {
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    width: 100%;
+    display: inline-block; /* let it sit within the column flow */
+    margin: 0 0 16px;
+  }
+
+  /* Slightly denser cards in columns for visual rhythm */
+  .accx-main--cols .accx-sec-title {
+    margin-bottom: 8px;
+  }
+}
+
+/* Tablets: 1 column, comfy spacing */
+@media (max-width: 1079.98px) {
+  .accx-main--cols {
+    columns: 1;
+  }
+  .accx-main--cols .accx-card {
+    margin-bottom: 12px;
+  }
+}
+
+/* ---------- tidy up global spacing now that we’ve constrained width ---------- */
+
+/* Cards already look good; tighten shadows + borders for dense columns */
+.accx-card {
+  border-radius: 14px;
+  border-color: var(--accx-line);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+}
+
+/* Avoid too-wide text lines on large screens */
+.accx-summary,
+.accx-block,
+.accx-project,
+.accx-links,
+.accx-kv {
+  max-width: 48rem; /* ~768px for readability */
+}
+
+/* For projects in column layout, let them stretch full column width */
+.accx-main--cols .accx-projects {
+  display: block; /* disable the grid inside multi-columns */
+}
+.accx-main--cols .accx-project {
+  width: 100%;
+}
+
+/* ---------- header polish in constrained container ---------- */
+
+.accx-id .accx-name {
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+}
+.accx-id .accx-title {
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+}
+
+/* Keep public link tidy inside constrained width */
+.accx-publiclink span {
+  max-width: 52ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- edit panels grids inside container ---------- */
+
+.accx-row,
+.accx-grid {
+  /* match container width feel; let inputs breathe */
+  gap: 12px;
+}
+
+/* ---------- small spacing adjustments for consistency ---------- */
+
+.accx-main .accx-card + .accx-card {
+  margin-top: 0; /* columns handle spacing */
+}
+.accx-edit-panels .accx-card + .accx-card {
+  margin-top: 12px;
+}
+
+/* ---------- optional: tighten cover min-height now that center aligned ---------- */
+
+.accx-cover {
+  min-height: 200px;
+}
+
+/* ---------- optional: refine avatar sizing for narrow widths ---------- */
+@media (max-width: 640px) {
+  .accx-avatar {
+    width: 88px;
+    height: 88px;
+  }
+}

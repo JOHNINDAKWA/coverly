@@ -1,0 +1,126 @@
+.signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--bg-soft);
+  padding: 20px;
+}
+
+.signup-card {
+  background: var(--panel);
+  padding: 32px;
+  border-radius: var(--r-16);
+  box-shadow: var(--shadow-strong);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.signup-card h2 {
+  margin-bottom: 8px;
+  color: var(--brand-600);
+  font-size: 1.6rem;
+}
+
+.signup-card .subtitle {
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+.signup-form .form-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.signup-form label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.signup-form input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-12);
+  background: var(--surface-1);
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.signup-form input:focus {
+  outline: none;
+  border-color: var(--brand-600);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+.full-width {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: var(--r-12);
+}
+
+/* Divider */
+.divider {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.divider span {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  position: relative;
+}
+.divider span::before {
+  content: "OR";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--panel);
+  padding: 0 10px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* Google button */
+.btn-google {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid var(--border);
+  color: #444;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: var(--r-12);
+  transition: background 0.2s ease;
+}
+.btn-google img {
+  width: 20px;
+  height: 20px;
+}
+.btn-google:hover {
+  background: #f8f9fa;
+}
+
+.signin-link {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+.signin-link a {
+  color: var(--brand-600);
+  font-weight: 600;
+}
+.signin-link a:hover {
+  text-decoration: underline;
+}

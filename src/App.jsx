@@ -1,51 +1,75 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 
-import Home from './pages/Home/Home';
-import Upload from './pages/Upload/Upload';
-import ExtractReview from './pages/ExtractReview/ExtractReview';
-import Generate from './pages/Generate/Generate';
-import Templates from './pages/Templates/Templates';
-import PreviewPay from './pages/PreviewPay/PreviewPay';
-import PostPay from './pages/PostPay/PostPay';
+import Home from "./pages/Home/Home";
+import Upload from "./pages/Upload/Upload";
+import ExtractReview from "./pages/ExtractReview/ExtractReview";
+import Generate from "./pages/Generate/Generate";
+import Templates from "./pages/Templates/Templates";
+import PreviewPay from "./pages/PreviewPay/PreviewPay";
+import PostPay from "./pages/PostPay/PostPay";
 
-import { useAppStore } from './state/useAppStore';
-import './index.css'; // ensure this includes the .app-shell styles below
-import StepTracker from './components/StepTracker/StepTracker';
+import { useAppStore } from "./state/useAppStore";
+import "./index.css"; // ensure this includes the .app-shell styles below
+import StepTracker from "./components/StepTracker/StepTracker";
+import Signup from "./pages/Auth/Signup";
+import Account from './pages/Account/Account';
+import Portfolio from './pages/Portfolio/Portfolio';
 
 function StepGuard({ minStage, children }) {
-  const stage = useAppStore(s => s.stage);
-  const order = ['/upload', '/extract-review', '/generate', '/templates', '/preview-pay', '/done'];
+  const stage = useAppStore((s) => s.stage);
+  const order = [
+    "/upload",
+    "/extract-review",
+    "/generate",
+    "/templates",
+    "/preview-pay",
+    "/done",
+  ];
   if (stage < minStage) return <Navigate to={order[stage]} replace />;
   return children;
 }
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return null;
 }
 
 export default function App() {
- const location = useLocation();
-  const wizardPaths = ['/upload', '/extract-review', '/generate', '/templates', '/preview-pay', '/done'];
-  const showStepper = wizardPaths.some(p => location.pathname.startsWith(p));
+  const location = useLocation();
+  const wizardPaths = [
+    "/upload",
+    "/extract-review",
+    "/generate",
+    "/templates",
+    "/preview-pay",
+    "/done",
+  ];
+  const showStepper = wizardPaths.some((p) => location.pathname.startsWith(p));
 
   return (
-    <div className={`app-shell ${showStepper ? 'is-wizard' : ''}`}>
-      <a href="#main" className="skip-link">Skip to content</a>
+    <div className={`app-shell ${showStepper ? "is-wizard" : ""}`}>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
 
       <Header />
 
-      {showStepper && <StepTracker   />}
+      {showStepper && <StepTracker />}
 
       <main id="main" className="app-main">
         <ScrollToTop />
         <Routes location={location}>
           <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/u/:username" element={<Portfolio />} />
           <Route path="/upload" element={<Upload />} />
           <Route
             path="/extract-review"

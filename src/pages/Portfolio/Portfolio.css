@@ -1,0 +1,202 @@
+/* Shareable Portfolio – scoped styles (pf-*) */
+
+.pf-wrap {
+  width: min(1100px, 92vw);
+  margin-inline: auto;
+  padding: 24px 0 60px;
+  font-family: var(--font-body, Manrope, system-ui, sans-serif);
+  color: var(--text, #0f172a);
+}
+
+/* Cover */
+.pf-cover {
+  position: relative;
+  background: linear-gradient(135deg, var(--brand-600, #6366f1), var(--teal-600, #0ea5a5));
+  border-radius: 18px;
+  box-shadow: var(--shadow-strong, 0 18px 60px rgba(0,0,0,.18));
+  overflow: hidden;
+  padding: 36px 24px 54px;
+  margin-bottom: 28px;
+}
+.pf-cover__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 420px at 10% -10%, rgba(255,255,255,.18), transparent),
+    linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,.35));
+}
+
+.pf-head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #fff;
+}
+.pf-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 20px;
+  background: #fff;
+  color: var(--brand-600, #6366f1);
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 1.9rem;
+  box-shadow: 0 8px 28px rgba(0,0,0,.25);
+}
+.pf-head__info { display: grid; gap: 6px; }
+.pf-name { font-size: 1.9rem; font-weight: 900; letter-spacing: -.02em; }
+.pf-title { font-weight: 600; opacity: .95; }
+
+/* Link chip */
+.pf-linkchip {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.32);
+  padding: 8px 12px;
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+}
+.pf-linkchip a {
+  color: #fff;
+  text-decoration: underline;
+  max-width: 420px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pf-chip-ok { font-size: .85rem; color: #c7f9cc; }
+
+/* Local buttons */
+.pf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: #fff;
+  color: #0f172a;
+}
+.pf-btn--ghost {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.35);
+}
+.pf-btn--ghost:hover { background: rgba(255,255,255,.22); }
+
+/* Grid */
+.pf-grid { display: grid; gap: 20px; }
+@media (min-width: 980px) {
+  .pf-grid { grid-template-columns: 0.95fr 1.05fr; }
+}
+
+.pf-col { display: grid; gap: 20px; }
+.pf-card {
+  background: var(--panel, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: var(--shadow, 0 8px 24px rgba(0,0,0,.06));
+}
+
+.pf-sec-title {
+  font-weight: 800;
+  color: var(--brand-600, #6366f1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.pf-muted { color: var(--text-dim, #667085); }
+.pf-dim   { color: var(--text-dim, #6b7280); }
+
+/* Lists & tags */
+.pf-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.pf-list--contact li { display: inline-flex; align-items: center; gap: 8px; }
+.pf-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.pf-tag {
+  background: var(--surface-1, #f6f8fb);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 600;
+}
+
+/* Experience timeline */
+.pf-timeline { position: relative; padding-left: 18px; }
+.pf-timeline::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 15px;
+  bottom: 4px;
+  width: 2px;
+  background: linear-gradient(var(--brand-600, #6366f1), var(--teal-600, #0ea5a5));
+  opacity: .35;
+}
+.pf-tl-item { position: relative; display: grid; gap: 6px; padding-bottom: 14px; }
+.pf-tl-dot {
+  position: absolute;
+  left: -18px;
+  top: 12px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--brand-600, #6366f1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-600, #6366f1) 25%, transparent);
+}
+.pf-tl-body { padding-left: 8px; }
+.pf-job { font-weight: 800; display: flex; justify-content: space-between; gap: 10px; }
+.pf-job__dates { color: var(--text-dim, #6b7280); font-weight: 700; font-size: .95rem; }
+.pf-bullets { margin: 4px 0 0 18px; }
+.pf-bullets li { list-style: disc; margin-bottom: 4px; color: var(--text); }
+
+/* Education */
+.pf-edu { display: grid; gap: 12px; }
+.pf-edu-item h4 { font-weight: 800; }
+
+
+
+.pf-cta-row { margin-top: 10px; }
+.pf-btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:var(--panel); font-weight:700; }
+.pf-btn--primary { color:#fff; border-color:transparent; background:linear-gradient(135deg, var(--brand-600), var(--teal-600)); }
+.pf-list--links li { display:flex; flex-direction:column; gap:4px; }
+.pf-link-label { font-weight:600; color:var(--text); }
+.pf-projects { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+.pf-project { display:flex; flex-direction:column; border:1px solid var(--border); border-radius:12px; overflow:hidden; background:var(--panel); }
+.pf-project__img { aspect-ratio: 16 / 9; overflow:hidden; background:#f4f6fb; }
+.pf-project__img img { width:100%; height:100%; object-fit:cover; display:block; }
+.pf-project__img--ph { background:linear-gradient(135deg,#e9eef6,#f5f7fb); }
+.pf-project__body { padding:12px; display:grid; gap:6px; }
+.pf-project__top { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+
+
+/* full-width bottom section */
+.pf-wide { width: min(1100px, 92vw); margin: 12px auto 24px; }
+.pf-card--wide { padding: 14px; }
+.pf-projects--wide { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+
+/* compact social chips (name + icon only) */
+.pf-list--compact { display: grid; gap: 8px; }
+.pf-link-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  cursor: pointer;
+}
+.pf-link-chip__label { font-weight: 600; }
+.pf-link-chip__icon { flex-shrink: 0; }

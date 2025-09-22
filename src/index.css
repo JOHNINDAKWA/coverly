@@ -23,6 +23,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+@page {
+  margin: 0;  /* remove printer/PDF default margin */
+}
 /* Remove default margins on headings, paragraphs, lists */
 h1,h2,h3,h4,h5,h6,p,figure,blockquote,dl,dd { margin: 0; }
 

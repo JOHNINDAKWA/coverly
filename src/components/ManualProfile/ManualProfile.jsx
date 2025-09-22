@@ -91,12 +91,14 @@ export default function ManualProfileModal({ onClose }) {
   const addJob = () => setForm(p => ({ ...p, jobs: [...p.jobs, { ...emptyJob }] }));
   const delJob = (i) => setForm(p => ({ ...p, jobs: p.jobs.filter((_, idx) => idx !== i) }));
 
-  const steps = useMemo(() => ([
-    { key: 'personal', label: 'Personal', icon: LuUser },
-    { key: 'contact',  label: 'Contact',  icon: LuMail },
-    { key: 'experience', label: 'Experience', icon: LuBriefcase },
-    { key: 'skills',   label: 'Skills',   icon: LuSparkles },
-  ]), []);
+const steps = useMemo(() => ([
+  { key: 'profile', label: 'Profile', icon: LuUser },
+  { key: 'contact', label: 'Contact', icon: LuMail },
+  { key: 'experience', label: 'Experience', icon: LuBriefcase },
+  { key: 'skills', label: 'Skills', icon: LuSparkles },
+  { key: 'education', label: 'Education', icon: LuCalendar }
+]), []);
+
 
   // Simple completion checks for the sidebar ticks
   const isStepDone = (i) => {
@@ -186,36 +188,33 @@ export default function ManualProfileModal({ onClose }) {
           {/* Main pane */}
           <section className="mpv2-main">
             {/* Step 1 — Personal */}
-            {step === 0 && (
-              <div className="card">
-                <div className="card__title"><FaHome /> Personal details</div>
-                <div className="grid two">
-                  <label>First name
-                    <input placeholder="e.g. John" value={form.firstName} onChange={e=>setField('firstName', e.target.value)} />
-                  </label>
-                  <label>Last name
-                    <input placeholder="e.g. Williams" value={form.lastName} onChange={e=>setField('lastName', e.target.value)} />
-                  </label>
-                </div>
+          {step === 0 && (
+  <div className="card">
+    <div className="card__title"><LuUser /> Profile details</div>
+    <div className="grid two">
+      <label>First name
+        <input placeholder="e.g. John" value={form.firstName} onChange={e=>setField('firstName', e.target.value)} />
+      </label>
+      <label>Last name
+        <input placeholder="e.g. Kamau" value={form.lastName} onChange={e=>setField('lastName', e.target.value)} />
+      </label>
+    </div>
 
-                <label>Address
-                  <input placeholder="e.g. 60, Collins St." value={form.address} onChange={e=>setField('address', e.target.value)} />
-                  <span className="help">Let employers know where you live. Add your main address of residence.</span>
-                </label>
+    <label>Professional Title
+      <input placeholder="e.g. Software Developer" value={form.title || ''} onChange={e=>setField('title', e.target.value)} />
+      <span className="help">This is your career headline shown on top of your CV.</span>
+    </label>
 
-                <div className="grid three">
-                  <label>City
-                    <input placeholder="e.g. Nairobi" value={form.city} onChange={e=>setField('city', e.target.value)} />
-                  </label>
-                  <label>Country
-                    <input placeholder="e.g. Kenya" value={form.country} onChange={e=>setField('country', e.target.value)} />
-                  </label>
-                  <label>ZIP / Postal code
-                    <input placeholder="Optional" value={form.postal || ''} onChange={e=>setField('postal', e.target.value)} />
-                  </label>
-                </div>
-              </div>
-            )}
+    <div className="grid two">
+      <label>City / Town
+        <input placeholder="e.g. Nairobi" value={form.city} onChange={e=>setField('city', e.target.value)} />
+      </label>
+      <label>Country
+        <input placeholder="e.g. Kenya" value={form.country} onChange={e=>setField('country', e.target.value)} />
+      </label>
+    </div>
+  </div>
+)}
 
             {/* Step 2 — Contact */}
             {step === 1 && (
@@ -249,7 +248,7 @@ export default function ManualProfileModal({ onClose }) {
                     </div>
 
                     <div className="grid three">
-                      <label>City/Region
+                      <label>City/Town
                         <div className="inp ico"><LuMapPin /><input placeholder="e.g. Nairobi" value={j.city} onChange={e=>setJob(i, { city: e.target.value })} /></div>
                       </label>
                     
@@ -304,6 +303,69 @@ export default function ManualProfileModal({ onClose }) {
                 </label>
               </div>
             )}
+
+
+            {step === 4 && (
+  <div className="card">
+    <div className="card__title"><LuCalendar /> Education</div>
+
+    {(form.education || []).map((ed, i) => (
+      <div className="job" key={i}>
+        <label>Institution
+          <input placeholder="e.g. University of Nairobi" value={ed.school} onChange={e=>setForm(p => {
+            const edu = [...(p.education || [])];
+            edu[i] = { ...edu[i], school: e.target.value };
+            return { ...p, education: edu };
+          })} />
+        </label>
+        <label>Degree / Certificate
+          <input placeholder="e.g. BSc Computer Science" value={ed.degree} onChange={e=>setForm(p => {
+            const edu = [...(p.education || [])];
+            edu[i] = { ...edu[i], degree: e.target.value };
+            return { ...p, education: edu };
+          })} />
+        </label>
+        <label>Field of Study
+          <input placeholder="e.g. Computer Science" value={ed.field || ''} onChange={e=>setForm(p => {
+            const edu = [...(p.education || [])];
+            edu[i] = { ...edu[i], field: e.target.value };
+            return { ...p, education: edu };
+          })} />
+        </label>
+        <div className="grid two">
+          <label>Start Year
+            <input inputMode="numeric" placeholder="YYYY" value={ed.startYear || ''} onChange={e=>setForm(p => {
+              const edu = [...(p.education || [])];
+              edu[i] = { ...edu[i], startYear: e.target.value.replace(/\D/g,'').slice(0,4) };
+              return { ...p, education: edu };
+            })} />
+          </label>
+          <label>End Year
+            <input inputMode="numeric" placeholder="YYYY" value={ed.endYear || ''} onChange={e=>setForm(p => {
+              const edu = [...(p.education || [])];
+              edu[i] = { ...edu[i], endYear: e.target.value.replace(/\D/g,'').slice(0,4) };
+              return { ...p, education: edu };
+            })} />
+          </label>
+        </div>
+        {form.education.length > 1 && (
+          <button type="button" className="mini danger" onClick={() => setForm(p => ({
+            ...p,
+            education: p.education.filter((_, idx) => idx !== i)
+          }))}>
+            <LuTrash2 /> Remove this education
+          </button>
+        )}
+        <hr className="sep" />
+      </div>
+    ))}
+    <button type="button" className="mini" onClick={() => setForm(p => ({
+      ...p,
+      education: [...(p.education || []), { school: '', degree: '', field: '', startYear: '', endYear: '' }]
+    }))}><LuPlus /> Add another</button>
+  </div>
+)}
+
 
             {/* Actions */}
             <div className="actions">

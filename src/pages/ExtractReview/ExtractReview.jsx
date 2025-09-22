@@ -1,12 +1,12 @@
+// src/pages/ExtractReview/ExtractReview.jsx
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../../state/useAppStore';
 import ManualProfileModal from '../../components/ManualProfile/ManualProfile';
 import {
   LuUser, LuMail, LuPhone, LuMapPin,
-   LuSparkles, LuChevronRight, LuPlus, LuTrash2
+  LuSparkles, LuChevronRight, LuPlus, LuTrash2, LuBriefcase, LuGraduationCap
 } from 'react-icons/lu';
-
 import { CiEdit } from "react-icons/ci";
 import './ExtractReview.css';
 
@@ -29,26 +29,37 @@ export default function ExtractReview() {
 
   const jdSnippet = (jdText || '').slice(0, 220).trim() + ((jdText || '').length > 220 ? '…' : '');
 
-const onContinue = async () => {
+  const onContinue = async () => {
     setProfile(local);
     await generateDrafts();
-  // ensure stage is at least 2 before navigating
-  const current = useAppStore.getState().stage;
-   if (current < 2) useAppStore.setState({ stage: 2 });
+    const current = useAppStore.getState().stage;
+    if (current < 2) useAppStore.setState({ stage: 2 });
     navigate('/generate');
   };
 
+  // === Skills handlers ===
   const addSkill = () => setLocal(prev => ({ ...prev, skills: [...(prev.skills || []), ''] }));
   const updateSkill = (i, v) =>
     setLocal(prev => ({ ...prev, skills: prev.skills.map((s, idx) => (idx === i ? v : s)) }));
   const removeSkill = (i) =>
     setLocal(prev => ({ ...prev, skills: prev.skills.filter((_, idx) => idx !== i) }));
 
+  // === Experience handlers ===
   const updateJob = (i, patch) =>
     setLocal(prev => ({
       ...prev,
       experience: (prev.experience || []).map((j, idx) => (idx === i ? { ...j, ...patch } : j)),
     }));
+
+  // === Education handlers ===
+  const addEdu = () => setLocal(prev => ({ ...prev, education: [...(prev.education || []), {}] }));
+  const updateEdu = (i, patch) =>
+    setLocal(prev => ({
+      ...prev,
+      education: (prev.education || []).map((ed, idx) => (idx === i ? { ...ed, ...patch } : ed)),
+    }));
+  const removeEdu = (i) =>
+    setLocal(prev => ({ ...prev, education: prev.education.filter((_, idx) => idx !== i) }));
 
   const canGenerate =
     String(local.name || '').trim().length > 1 &&
@@ -81,6 +92,12 @@ const onContinue = async () => {
                   value={local.name || ''}
                   placeholder="Your full name"
                   onChange={(e) => setLocal({ ...local, name: e.target.value })}
+                />
+                <input
+                  className="sub"
+                  value={local.title || ''}
+                  placeholder="Your professional title (e.g. Software Developer)"
+                  onChange={(e) => setLocal({ ...local, title: e.target.value })}
                 />
                 <div className="chips">
                   <span className="chip">
@@ -135,10 +152,11 @@ const onContinue = async () => {
             )}
           </aside>
 
-          {/* RIGHT — Experience cards */}
+          {/* RIGHT — Experience + Education */}
           <section className="xr-main">
+            {/* Experience */}
             <div className="card">
-              <div className="card__title">Experience</div>
+              <div className="card__title"><LuBriefcase /> Experience</div>
               <div className="jobs">
                 {(local.experience || []).map((job, i) => (
                   <article className="job-card" key={i}>
@@ -159,7 +177,7 @@ const onContinue = async () => {
                       </label>
                     </div>
                     <div className="row three">
-                      <label>City
+                      <label>City/Town
                         <input
                           value={job.city || ''}
                           onChange={(e) => updateJob(i, { city: e.target.value })}
@@ -211,6 +229,70 @@ const onContinue = async () => {
                 ))}
               </div>
             </div>
+
+            {/* Education */}
+            <div className="card">
+              <div className="card__title"><LuGraduationCap /> Education</div>
+              <div className="jobs">
+                {(local.education || []).map((ed, i) => (
+                  <article className="job-card" key={i}>
+                    <div className="row two">
+                      <label>Institution
+                        <input
+                          value={ed.school || ''}
+                          onChange={(e) => updateEdu(i, { school: e.target.value })}
+                          placeholder="e.g. University of Nairobi"
+                        />
+                      </label>
+                      <label>Degree / Certificate
+                        <input
+                          value={ed.degree || ''}
+                          onChange={(e) => updateEdu(i, { degree: e.target.value })}
+                          placeholder="e.g. BSc Computer Science"
+                        />
+                      </label>
+                    </div>
+                    <div className="row two">
+                      <label>Field of Study
+                        <input
+                          value={ed.field || ''}
+                          onChange={(e) => updateEdu(i, { field: e.target.value })}
+                          placeholder="e.g. Computer Science"
+                        />
+                      </label>
+                      <div className="row two">
+                        <label>Start Year
+                          <input
+                            value={ed.startYear || ''}
+                            onChange={(e) => updateEdu(i, { startYear: e.target.value })}
+                            placeholder="YYYY"
+                          />
+                        </label>
+                        <label>End Year
+                          <input
+                            value={ed.endYear || ''}
+                            onChange={(e) => updateEdu(i, { endYear: e.target.value })}
+                            placeholder="YYYY"
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    {(local.education || []).length > 1 && (
+                      <button
+                        type="button"
+                        className="mini danger"
+                        onClick={() => removeEdu(i)}
+                      >
+                        <LuTrash2 /> Remove
+                      </button>
+                    )}
+                  </article>
+                ))}
+              </div>
+              <button type="button" className="mini" onClick={addEdu}>
+                <LuPlus /> Add education
+              </button>
+            </div>
           </section>
         </div>
 
@@ -226,7 +308,6 @@ const onContinue = async () => {
         <ManualProfileModal
           onClose={() => {
             setShowManual(false);
-            // refresh local from store in case user edited there
             const latest = useAppStore.getState().extractedProfile;
             latest && setLocal(latest);
           }}

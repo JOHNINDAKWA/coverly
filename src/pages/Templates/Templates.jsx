@@ -6,15 +6,31 @@ import TemplateCard from '../../components/TemplateCard/TemplateCard';
 import './Templates.css';
 
 export default function Templates() {
-  const docType = useAppStore(s => s.docType);
+  const docType = useAppStore((s) => s.docType);
 
-  const TEMPLATES = docType === 'cover-letter'
-    ? [{ id: 'sleek', name: 'Sleek Letter' }, { id: 'modern', name: 'Modern Letter' }, { id: 'classic', name: 'Classic Letter' }, { id: 'celestial', name: 'Celestial Letter' }]
-    : [{ id: 'sleek', name: 'Sleek' }, { id: 'modern', name: 'Modern' }, { id: 'classic', name: 'Classic' }, { id: 'celestial', name: 'Celestial' }];
+  // Templates list updated to include innova + genius
+  const TEMPLATES =
+    docType === 'cover-letter'
+      ? [
+          { id: 'sleek', name: 'Sleek Letter' },
+          { id: 'modern', name: 'Modern Letter' },
+          { id: 'classic', name: 'Classic Letter' },
+          { id: 'celestial', name: 'Celestial Letter' },
+          { id: 'innova', name: 'Innova Letter' },
+          { id: 'genius', name: 'Genius Letter' },
+        ]
+      : [
+          { id: 'sleek', name: 'Sleek' },
+          { id: 'modern', name: 'Modern' },
+          { id: 'classic', name: 'Classic' },
+          { id: 'celestial', name: 'Celestial' },
+          { id: 'innova', name: 'Innova' },
+          { id: 'genius', name: 'Genius' },
+        ];
 
-  const selected = useAppStore(s => s.selectedTemplate);
-  const selectTemplate = useAppStore(s => s.selectTemplate);
-  const preparePreview = useAppStore(s => s.preparePreview);
+  const selected = useAppStore((s) => s.selectedTemplate);
+  const selectTemplate = useAppStore((s) => s.selectTemplate);
+  const preparePreview = useAppStore((s) => s.preparePreview);
   const navigate = useNavigate();
 
   const onChoose = (tpl) => selectTemplate(tpl);
@@ -29,7 +45,7 @@ export default function Templates() {
       <div className="container">
         <h2>Choose a template</h2>
         <div className="tpl-grid">
-          {TEMPLATES.map(t => (
+          {TEMPLATES.map((t) => (
             <TemplateCard
               key={t.id}
               title={t.name}
