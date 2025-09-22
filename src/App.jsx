@@ -18,6 +18,7 @@ import StepTracker from "./components/StepTracker/StepTracker";
 import Signup from "./pages/Auth/Signup";
 import Account from './pages/Account/Account';
 import Portfolio from './pages/Portfolio/Portfolio';
+import Login from "./pages/Auth/Login";
 
 function StepGuard({ minStage, children }) {
   const stage = useAppStore((s) => s.stage);
@@ -68,6 +69,7 @@ export default function App() {
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/account" element={<Account />} />
           <Route path="/u/:username" element={<Portfolio />} />
           <Route path="/upload" element={<Upload />} />

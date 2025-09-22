@@ -1,0 +1,191 @@
+/* Login.css — uses your existing index.css variables */
+
+.loginx-wrap {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(1000px 400px at -10% -10%, var(--surface-1), transparent 60%),
+    radial-gradient(1000px 400px at 110% 110%, var(--surface-1), transparent 60%),
+    linear-gradient(180deg, var(--surface-1) 0%, var(--panel) 40%);
+  color: var(--text);
+}
+
+.loginx-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(820px 320px at 15% -15%, rgba(255,255,255,.14), transparent 60%),
+    radial-gradient(820px 320px at 85% 115%, rgba(255,255,255,.14), transparent 60%),
+    linear-gradient(135deg,
+      color-mix(in oklab, var(--brand-600) 16%, transparent),
+      color-mix(in oklab, var(--teal-600) 16%, transparent)
+    );
+}
+
+/* Card */
+.loginx-card {
+  position: relative;
+  width: min(940px, 94vw);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  background: color-mix(in oklab, var(--panel) 90%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 919.98px) {
+  .loginx-card { grid-template-columns: 1fr; }
+}
+
+/* Header area (brand) */
+.loginx-head {
+  grid-column: 1 / 3;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 22px 22px 0;
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--brand-600) 10%, transparent),
+                           color-mix(in oklab, var(--teal-600) 10%, transparent));
+  border-bottom: 1px solid var(--border);
+}
+
+.loginx-logo {
+  width: 64px; height: 64px;
+  border-radius: 14px;
+  display: grid; place-items: center;
+  font-weight: 800; font-size: 28px; color: #fff;
+  background: linear-gradient(135deg, var(--brand-600), var(--teal-600));
+  box-shadow: 0 10px 24px rgba(2,6,23,.18);
+}
+
+.loginx-head h2 {
+  margin: 0;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  color: var(--text);
+}
+
+.loginx-sub { margin: 6px 0 0; color: var(--text-dim); }
+
+/* Form column */
+.loginx-form {
+  grid-column: 1 / 3;
+  padding: 20px 22px 26px;
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 920px) {
+  .loginx-form { grid-column: 2; padding: 26px 26px 30px; }
+  .loginx-head { grid-column: 1 / 2; border-right: 1px solid var(--border); border-bottom: none; min-height: 220px; align-content: center; }
+}
+
+/* Fields */
+.loginx-field { display: grid; gap: 6px; }
+.loginx-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.loginx-inp {
+  display: grid;
+  grid-template-columns: 38px 1fr 38px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 6px 8px;
+  box-shadow: 0 10px 26px rgba(2,6,23,.04);
+}
+.loginx-inp input {
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 10px 8px;
+  font: inherit;
+  color: var(--text);
+}
+.loginx-ico { color: var(--text-dim); justify-self: center; }
+
+.loginx-eye {
+  border: none; background: transparent;
+  display: grid; place-items: center;
+  width: 34px; height: 34px; border-radius: 10px;
+  cursor: pointer; color: var(--text-dim);
+}
+.loginx-eye:hover { background: var(--surface-1); }
+
+/* Row (remember/forgot) */
+.loginx-row {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; margin-top: 4px;
+}
+.loginx-check { display: inline-flex; align-items: center; gap: 8px; user-select: none; cursor: pointer; color: var(--text); }
+.loginx-check input { width: 16px; height: 16px; }
+
+.loginx-forgot { color: var(--brand-600); text-decoration: none; font-weight: 700; }
+.loginx-forgot:hover { text-decoration: underline; }
+
+/* Buttons */
+.loginx-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(2,6,23,.06);
+}
+.loginx-btn:hover { background: var(--surface-1); }
+.loginx-btn[disabled] { opacity: .6; cursor: not-allowed; }
+
+.loginx-btn--primary {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--brand-600), var(--teal-600));
+}
+.loginx-btn--google img { width: 18px; height: 18px; }
+
+/* Divider */
+.loginx-div {
+  display: grid; place-items: center; position: relative; margin: 6px 0;
+}
+.loginx-div::before {
+  content: ""; height: 1px; width: 100%;
+  background: var(--border); position: absolute; left: 0; top: 50%;
+}
+.loginx-div span {
+  position: relative; background: var(--panel);
+  padding: 0 10px; color: var(--text-dim); font-weight: 700;
+}
+
+/* Meta */
+.loginx-meta { text-align: center; color: var(--text-dim); }
+.loginx-link { color: var(--brand-600); font-weight: 800; text-decoration: none; }
+.loginx-link:hover { text-decoration: underline; }
+
+/* Error */
+.loginx-error {
+  border: 1px solid color-mix(in oklab, var(--brand-600) 22%, var(--border));
+  background: color-mix(in oklab, var(--brand-600) 10%, var(--panel));
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+/* Spinner */
+.loginx-spin { animation: loginx-spin .9s linear infinite; }
+@keyframes loginx-spin { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
