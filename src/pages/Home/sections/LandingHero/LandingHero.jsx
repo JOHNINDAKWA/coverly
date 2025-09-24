@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LuFileText, LuPenLine, LuChevronRight } from 'react-icons/lu';
 import cvImg from '../../../../assets/images/cv2.png';
@@ -6,30 +6,45 @@ import clImg from '../../../../assets/images/cl.png';
 import './LandingHero.css';
 
 export default function LandingHero() {
+  const [intro, setIntro] = useState(true);
+
+  useEffect(() => {
+    // Let both cards appear first, then start the swapping loop
+    const t = setTimeout(() => setIntro(false), 4000); // intro duration must match CSS
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <section className="hero">
       <div className="hero__inner">
-                {/* Right: stacked documents */}
-        <div className="hero__showcase" aria-hidden="true">
-          {/* Background glow & shapes */}
+
+        {/* Right: animated, alternating documents */}
+        <div
+          className={`hero__showcase ${intro ? 'is-intro' : 'is-loop'}`}
+          aria-hidden="true"
+        >
           <div className="hero__glow" />
-          <div className="hero__rings">
+          <div className="hero__rings" aria-hidden>
             <span />
             <span />
             <span />
           </div>
 
-          {/* Cards */}
-          <figure className="doc-card doc-card--cv">
-            <img src={clImg} alt="" />
+          {/* Back card (CV) */}
+          <figure
+            className={`doc-cardx doc-card--cvx ${intro ? 'intro-cv' : 'loop-cv'}`}
+          >
+            <img src={cvImg} alt="" />
           </figure>
 
-          <figure className="doc-card doc-card--cl">
-            <img src={cvImg} alt="" />
+          {/* Front card (CL) */}
+          <figure
+            className={`doc-cardx doc-card--clx ${intro ? 'intro-cl' : 'loop-cl'}`}
+          >
+            <img src={clImg} alt="" />
           </figure>
         </div>
 
-        
         {/* Left: copy & CTAs */}
         <div className="hero__copy">
           <span className="chip">Resumes & Cover Letters</span>
@@ -58,7 +73,6 @@ export default function LandingHero() {
             <span className="badge">PDF Export</span>
           </div>
         </div>
-
 
       </div>
     </section>
