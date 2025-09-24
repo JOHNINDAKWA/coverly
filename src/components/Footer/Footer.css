@@ -21,6 +21,7 @@
   display: grid;
   gap: 16px;
   align-items: center;
+
 }
 .cvf-cta__text h3 {
   font-family: var(--font-heading);

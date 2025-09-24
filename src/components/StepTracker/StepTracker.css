@@ -74,7 +74,7 @@
   transition: transform .08s ease, border-color .2s ease, background .2s ease, color .2s ease;
 }
 .cv-step__dot:hover { transform: translateY(-1px); }
-.cv-step__dot svg { width: 18px; height: 18px; opacity: .9; }
+.cv-step__dot svg { width: 18px; height: 18px; opacity: .9;  }
 .cv-step__num {
   position: absolute;
   bottom: -14px;

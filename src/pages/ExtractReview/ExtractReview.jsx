@@ -1,11 +1,12 @@
 // src/pages/ExtractReview/ExtractReview.jsx
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../../state/useAppStore';
 import ManualProfileModal from '../../components/ManualProfile/ManualProfile';
 import {
   LuUser, LuMail, LuPhone, LuMapPin,
-  LuSparkles, LuChevronRight, LuPlus, LuTrash2, LuBriefcase, LuGraduationCap
+  LuSparkles, LuChevronRight, LuPlus, LuTrash2,
+  LuBriefcase, LuGraduationCap
 } from 'react-icons/lu';
 import { CiEdit } from "react-icons/ci";
 import './ExtractReview.css';
@@ -22,10 +23,6 @@ export default function ExtractReview() {
 
   if (!storeProfile) return null;
 
-  const initials = useMemo(() => {
-    const parts = String(local.name || '').trim().split(/\s+/);
-    return (parts[0]?.[0] || '') + (parts[1]?.[0] || '');
-  }, [local.name]);
 
   const jdSnippet = (jdText || '').slice(0, 220).trim() + ((jdText || '').length > 220 ? '…' : '');
 
@@ -37,29 +34,88 @@ export default function ExtractReview() {
     navigate('/generate');
   };
 
-  // === Skills handlers ===
-  const addSkill = () => setLocal(prev => ({ ...prev, skills: [...(prev.skills || []), ''] }));
+  /* ====================== Skills ====================== */
+  const addSkill = () =>
+    setLocal(prev => ({ ...prev, skills: [...(prev.skills || []), ''] }));
   const updateSkill = (i, v) =>
-    setLocal(prev => ({ ...prev, skills: prev.skills.map((s, idx) => (idx === i ? v : s)) }));
+    setLocal(prev => ({
+      ...prev,
+      skills: (prev.skills || []).map((s, idx) => (idx === i ? v : s))
+    }));
   const removeSkill = (i) =>
-    setLocal(prev => ({ ...prev, skills: prev.skills.filter((_, idx) => idx !== i) }));
+    setLocal(prev => ({
+      ...prev,
+      skills: (prev.skills || []).filter((_, idx) => idx !== i)
+    }));
 
-  // === Experience handlers ===
+  /* ==================== Experience ==================== */
   const updateJob = (i, patch) =>
     setLocal(prev => ({
       ...prev,
       experience: (prev.experience || []).map((j, idx) => (idx === i ? { ...j, ...patch } : j)),
     }));
 
-  // === Education handlers ===
-  const addEdu = () => setLocal(prev => ({ ...prev, education: [...(prev.education || []), {}] }));
+  /* ===================== Education ==================== */
+  const addEdu = () =>
+    setLocal(prev => ({ ...prev, education: [...(prev.education || []), {}] }));
   const updateEdu = (i, patch) =>
     setLocal(prev => ({
       ...prev,
       education: (prev.education || []).map((ed, idx) => (idx === i ? { ...ed, ...patch } : ed)),
     }));
   const removeEdu = (i) =>
-    setLocal(prev => ({ ...prev, education: prev.education.filter((_, idx) => idx !== i) }));
+    setLocal(prev => ({
+      ...prev,
+      education: (prev.education || []).filter((_, idx) => idx !== i)
+    }));
+
+  /* ============ Achievements (simple list) ============ */
+  const addAchievement = () =>
+    setLocal(prev => ({ ...prev, achievements: [...(prev.achievements || []), ''] }));
+  const updateAchievement = (i, v) =>
+    setLocal(prev => ({
+      ...prev,
+      achievements: (prev.achievements || []).map((a, idx) => (idx === i ? v : a))
+    }));
+  const removeAchievement = (i) =>
+    setLocal(prev => ({
+      ...prev,
+      achievements: (prev.achievements || []).filter((_, idx) => idx !== i)
+    }));
+
+  /* =============== Certifications (objects) =============== */
+  const addCert = () =>
+    setLocal(prev => ({
+      ...prev,
+      certifications: [...(prev.certifications || []), { name: '', issuer: '', year: '' }]
+    }));
+  const updateCert = (i, patch) =>
+    setLocal(prev => ({
+      ...prev,
+      certifications: (prev.certifications || []).map((c, idx) => (idx === i ? { ...c, ...patch } : c))
+    }));
+  const removeCert = (i) =>
+    setLocal(prev => ({
+      ...prev,
+      certifications: (prev.certifications || []).filter((_, idx) => idx !== i)
+    }));
+
+  /* =================== References (objects) =================== */
+  const addRef = () =>
+    setLocal(prev => ({
+      ...prev,
+      references: [...(prev.references || []), { name: '', title: '', company: '', email: '', phone: '' }]
+    }));
+  const updateRef = (i, patch) =>
+    setLocal(prev => ({
+      ...prev,
+      references: (prev.references || []).map((r, idx) => (idx === i ? { ...r, ...patch } : r))
+    }));
+  const removeRef = (i) =>
+    setLocal(prev => ({
+      ...prev,
+      references: (prev.references || []).filter((_, idx) => idx !== i)
+    }));
 
   const canGenerate =
     String(local.name || '').trim().length > 1 &&
@@ -85,7 +141,6 @@ export default function ExtractReview() {
           {/* LEFT — Snapshot */}
           <aside className="xr-snapshot card">
             <div className="snap-top">
-              <div className="avatar">{initials || 'U'}</div>
               <div className="who">
                 <input
                   className="big"
@@ -152,7 +207,7 @@ export default function ExtractReview() {
             )}
           </aside>
 
-          {/* RIGHT — Experience + Education */}
+          {/* RIGHT — Experience + Education + New Sections */}
           <section className="xr-main">
             {/* Experience */}
             <div className="card">
@@ -202,7 +257,7 @@ export default function ExtractReview() {
                     <label>Key bullets (one per line)
                       <textarea
                         rows={6}
-                        value={(job.bullets || []).join ? job.bullets.join('\n') : job.bullets || ''}
+                        value={(Array.isArray(job.bullets) ? job.bullets : (job.bullets || '')).join ? job.bullets.join('\n') : job.bullets}
                         onChange={(e) =>
                           updateJob(i, {
                             bullets: e.target.value.split('\n').map(b => b.trim()).filter(Boolean),
@@ -218,7 +273,7 @@ export default function ExtractReview() {
                         onClick={() =>
                           setLocal(prev => ({
                             ...prev,
-                            experience: prev.experience.filter((_, idx) => idx !== i),
+                            experience: (prev.experience || []).filter((_, idx) => idx !== i),
                           }))
                         }
                       >
@@ -291,6 +346,142 @@ export default function ExtractReview() {
               </div>
               <button type="button" className="mini" onClick={addEdu}>
                 <LuPlus /> Add education
+              </button>
+            </div>
+
+            {/* Achievements (optional) */}
+            <div className="card">
+              <div className="card__title"><LuSparkles /> Achievements (optional)</div>
+              <div className="jobs">
+                {(local.achievements || []).map((a, i) => (
+                  <article className="job-card two" key={i}>
+                    <label>Achievement
+                      <input
+                        value={a}
+                        placeholder="e.g. Winner, XYZ Award 2023"
+                        onChange={(e) => updateAchievement(i, e.target.value)}
+                      />
+                    </label>
+                    <button
+                      type="button"
+                      className="mini danger"
+                      onClick={() => removeAchievement(i)}
+                    >
+                      <LuTrash2 /> 
+                    </button>
+                  </article>
+                ))}
+              </div>
+              <button type="button" className="mini" onClick={addAchievement}>
+                <LuPlus /> Add achievement
+              </button>
+            </div>
+
+            {/* Certifications (optional) */}
+            <div className="card">
+              <div className="card__title"><LuSparkles /> Certifications (optional)</div>
+              <div className="jobs">
+                {(local.certifications || []).map((c, i) => (
+                  <article className="job-card" key={i}>
+                    <div className="row three">
+                      <label>Certification
+                        <input
+                          value={c.name || ''}
+                          placeholder="e.g. AWS Solutions Architect"
+                          onChange={(e) => updateCert(i, { name: e.target.value })}
+                        />
+                      </label>
+                      <label>Issuer
+                        <input
+                          value={c.issuer || ''}
+                          placeholder="e.g. Amazon"
+                          onChange={(e) => updateCert(i, { issuer: e.target.value })}
+                        />
+                      </label>
+                      <label>Year
+                        <input
+                          value={c.year || ''}
+                          placeholder="YYYY"
+                          onChange={(e) => updateCert(i, { year: e.target.value.replace(/\D/g,'').slice(0,4) })}
+                        />
+                      </label>
+                    </div>
+                    {(local.certifications || []).length > 1 && (
+                      <button
+                        type="button"
+                        className="mini danger"
+                        onClick={() => removeCert(i)}
+                      >
+                        <LuTrash2 /> Remove
+                      </button>
+                    )}
+                  </article>
+                ))}
+              </div>
+              <button type="button" className="mini" onClick={addCert}>
+                <LuPlus /> Add certification
+              </button>
+            </div>
+
+            {/* References (optional) */}
+            <div className="card">
+              <div className="card__title"><LuUser /> References (optional)</div>
+              <div className="jobs">
+                {(local.references || []).map((r, i) => (
+                  <article className="job-card" key={i}>
+                    <div className="row two">
+                      <label>Name
+                        <input
+                          value={r.name || ''}
+                          placeholder="e.g. Jane Doe"
+                          onChange={(e) => updateRef(i, { name: e.target.value })}
+                        />
+                      </label>
+                      <label>Title
+                        <input
+                          value={r.title || ''}
+                          placeholder="e.g. Engineering Manager"
+                          onChange={(e) => updateRef(i, { title: e.target.value })}
+                        />
+                      </label>
+                    </div>
+                    <div className="row two">
+                      <label>Company
+                        <input
+                          value={r.company || ''}
+                          placeholder="e.g. Acme Corp"
+                          onChange={(e) => updateRef(i, { company: e.target.value })}
+                        />
+                      </label>
+                      <label>Email
+                        <input
+                          value={r.email || ''}
+                          placeholder="jane@example.com"
+                          onChange={(e) => updateRef(i, { email: e.target.value })}
+                        />
+                      </label>
+                    </div>
+                    <label>Phone
+                      <input
+                        value={r.phone || ''}
+                        placeholder="+254 7xx xxx xxx"
+                        onChange={(e) => updateRef(i, { phone: e.target.value })}
+                      />
+                    </label>
+                    {(local.references || []).length > 1 && (
+                      <button
+                        type="button"
+                        className="mini danger"
+                        onClick={() => removeRef(i)}
+                      >
+                        <LuTrash2 /> Remove
+                      </button>
+                    )}
+                  </article>
+                ))}
+              </div>
+              <button type="button" className="mini" onClick={addRef}>
+                <LuPlus /> Add reference
               </button>
             </div>
           </section>

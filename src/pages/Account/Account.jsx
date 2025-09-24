@@ -62,7 +62,7 @@ export default function Account() {
 
   /** ---------- local editable state ---------- */
   const [editing, setEditing] = useState(false);
-  const [theme, setTheme] = useState(profileFromStore.theme || "sunset");
+  const [theme, setTheme] = useState(profileFromStore.theme || "aurora");
   const [cover, setCover] = useState(profileFromStore.cover || "");
   const [avatar, setAvatar] = useState(profileFromStore.avatar || "");
   const [copied, setCopied] = useState(false);
@@ -1082,12 +1082,14 @@ const AchievementsEditor = () => (
         <div className="accx-theme">
           <LuPalette />
           <select
-            className="accx-input"
+            className="accx-input axx"
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
             aria-label="Theme"
           >
-            <option value="sunset">Sunset</option>
+          
+            <option value="aurora">Aurora</option>
+              <option value="sunset">Sunset</option>
             <option value="teal">Teal</option>
             <option value="violet">Violet</option>
             <option value="slate">Slate</option>

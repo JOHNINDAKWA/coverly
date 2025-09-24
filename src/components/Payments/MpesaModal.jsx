@@ -1,76 +1,97 @@
-// src/components/Payments/MpesaModal.jsx
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useAppStore } from "../../state/useAppStore";
+import MpesaLogo from "../../assets/images/mpesa.png"; // <- your logo image
 import "./modal.css";
 
 export default function MpesaModal({ onClose, onPay }) {
-  const [phone, setPhone] = useState("");
-  const docType = useAppStore((s) => s.docType); // 'cv' or 'cover-letter'
-
+  const [raw, setRaw] = useState("");
+  const docType = useAppStore((s) => s.docType);
   const label = docType === "cv" ? "Resume" : "Cover Letter";
+
+  // Normalize to +2547XXXXXXXX
+  const phone = useMemo(() => {
+    let v = (raw || "").replace(/\s+/g, "");
+    if (v.startsWith("07")) v = "+254" + v.slice(1);
+    else if (v.startsWith("7")) v = "+254" + v;
+    else if (v.startsWith("2547")) v = "+" + v;
+    return v;
+  }, [raw]);
+
+  const canPay = /^\+2547\d{8}$/.test(phone);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!phone) return alert("Please enter your phone number");
+    if (!canPay) return alert("Enter a valid Safaricom number e.g. +254712345678");
     onPay(phone);
   };
 
   return (
     <div className="modal-overlay">
-      <div className="modal">
-        <h2>Pay with Mpesa</h2>
-        <p className="muted">
-          Enter your Safaricom number. You’ll receive a prompt on your phone to
-          complete payment.
+      <div className="modal mpesa saf-theme">
+        <header className="mp-head">
+          <div className="mp-brand">
+            <img src={MpesaLogo} alt="M-PESA" />
+          </div>
+          <div className="mp-head__text">
+            <div className="mp-title">M-PESA Payment</div>
+            <div className="mp-secure" aria-label="Secure payment">
+              <span className="mp-lock" aria-hidden>🔒</span> Secure STK Push
+            </div>
+          </div>
+        </header>
+
+        <p className="muted mp-intro">
+          Enter your Safaricom number and approve the pop-up on your phone.
         </p>
 
-        <form onSubmit={handleSubmit} className="mpesa-form">
-          <label>
-            Phone Number (Safaricom)
-            <input
-              type="tel"
-              placeholder="+2547XXXXXXXX"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="input"
-            />
+        <form onSubmit={handleSubmit} className="mp-form">
+          <label className="mp-label">
+            Payment Number
+            <div className="mp-inputwrap">
+              <div className="mp-sim" aria-hidden />
+              <input
+                type="tel"
+                inputMode="numeric"
+                autoComplete="tel"
+                placeholder="+254712345678"
+                className="input mp-input"
+                value={raw}
+                onChange={(e) => setRaw(e.target.value)}
+                aria-label="Safaricom phone number"
+              />
+            </div>
+         
           </label>
 
-          <div className="order-summary">
-            <h3>Order Summary</h3>
+          <div className="order-summary mp-summary">
+            <div className="mp-summary__title">Order Summary</div>
             <ul>
-              <li>
-                <span>{label}</span>
-                <span>Ksh 50</span>
-              </li>
-              <li>
-                <span>Total</span>
-                <span className="total">Ksh 50</span>
-              </li>
+              <li><span>{label}</span><span>Ksh 50</span></li>
+              <li className="divider" aria-hidden="true"></li>
+              <li><span>Total</span><span className="total">Ksh 50</span></li>
             </ul>
           </div>
 
-          <div className="modal-actions">
-            <button type="submit" className="btn btn-accent">
-              Pay Ksh 50
+          <div className="modal-actions mp-actions">
+            <button className="btn mp-pay" type="submit" disabled={!canPay}>
+              Initiate Payment
             </button>
-            <button type="button" className="btn" onClick={onClose}>
+            <button className="btn" type="button" onClick={onClose}>
               Cancel
             </button>
           </div>
         </form>
 
-        <p className="mpesa-instructions">
-          <strong>Instructions:</strong>
-          <br />
-          1. Enter your Safaricom phone number above.
-          <br />
-          2. You will get a pop-up on your phone.
-          <br />
-          3. Enter your Mpesa PIN to authorize.
-          <br />
-          4. Payment confirmation will appear instantly.
-        </p>
+        {/* <div className="mp-help">
+          Having issues with STK Push?{" "}
+          <button
+            className="mp-link"
+            type="button"
+            onClick={() => alert("Use Paybill 123456 • Account: YOURNAME • Amount: 50")}
+          >
+            Click here to use Paybill
+          </button>
+        </div> */}
       </div>
     </div>
   );

@@ -34,6 +34,9 @@
   border-radius: 10px; border: 1px solid var(--border); background: var(--panel);
 }
 
+.btn-fixed{
+}
+
 /* Body split */
 .mpv2-body { display: grid; grid-template-columns: 260px 1fr; min-height: 0; }
 @media (max-width: 860px) { .mpv2-body { grid-template-columns: 1fr; } }
@@ -119,7 +122,7 @@ textarea { resize: vertical; min-height: 100px; }
 
 /* Actions */
 .actions {
-  display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; margin-top: -2px;
+  display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; margin-top: -2px; height: max-content;
 }
 .btn {
   display: inline-flex; align-items: center; gap: 8px;

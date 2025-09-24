@@ -5,6 +5,8 @@ import { useAppStore } from '../../state/useAppStore';
 import TemplateCard from '../../components/TemplateCard/TemplateCard';
 import './Templates.css';
 
+
+
 export default function Templates() {
   const docType = useAppStore((s) => s.docType);
 
@@ -18,6 +20,8 @@ export default function Templates() {
           { id: 'celestial', name: 'Celestial Letter' },
           { id: 'innova', name: 'Innova Letter' },
           { id: 'genius', name: 'Genius Letter' },
+          { id: 'aurora', name: 'Aurora Letter' },
+          { id: 'folio', name: 'Folio Letter' },
         ]
       : [
           { id: 'sleek', name: 'Sleek' },
@@ -26,6 +30,8 @@ export default function Templates() {
           { id: 'celestial', name: 'Celestial' },
           { id: 'innova', name: 'Innova' },
           { id: 'genius', name: 'Genius' },
+          { id: 'aurora', name: 'Aurora' },
+          { id: 'folio', name: 'Folio' },
         ];
 
   const selected = useAppStore((s) => s.selectedTemplate);

@@ -1,57 +1,142 @@
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
+/* ---------- Safaricom/M-PESA themed modal (brand-safe) ---------- */
+.saf-theme {
+  --saf-green: #73b843;      /* classic M-PESA green */
+  --saf-green-dark: #3e850b; /* hover/active */
+  --saf-green-soft: #e9f9ef; /* light background */
+  --mp-ink: #0f172a;
+  --mp-dim: #667085;
+  --mp-line: #e5e7eb;
+  --mp-panel: #ffffff;
+}
+
+.modal.mpesa {
+  border: 1px solid var(--mp-line);
+  background: var(--mp-panel);
+  color: var(--mp-ink);
+}
+
+.mp-head {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  gap: 10px;
+  padding: 10px 12px;
+  margin: -6px -6px 10px -6px;          /* stretch a bit to edges */
+  border-radius: 12px;
+  background: var(--saf-green-soft);
+  border: 1px solid #dff3e6;
 }
 
-.modal {
-  background: var(--panel);
-  border-radius: var(--r-16);
-  padding: 24px;
-  width: min(420px, 92%);
-  box-shadow: var(--shadow-strong);
+.mp-brand img {
+  width: 72px;
+  height: auto;
+  display: block;
 }
 
-.modal h2 {
-  margin-bottom: 10px;
+.mp-head__text { display: grid; gap: 2px; }
+.mp-title { font-weight: 900; letter-spacing: .01em; }
+.mp-secure { font-size: .9rem; color: var(--mp-dim); }
+.mp-lock { font-size: .95rem; vertical-align: -1px; }
+
+/* Phone input */
+.mp-label { font-weight: 700; color: var(--mp-ink); }
+.mp-inputwrap {
+  display: flex; align-items: center; gap: 8px; 
+  border: 1px solid var(--mp-line);
+  border-radius: 12px; padding: 6px 10px; margin-top: 6px;
+  background: #fafafa;
+}
+.mp-sim {
+  width: 22px; height: 12px; border-radius: 3px;
+  background: linear-gradient(180deg, #cbd5e1, #eef2f7);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+  margin-top: -6px;
+}
+.mp-input {
+  border: none !important;
+  background: transparent !important;
+  padding: 6px 0 !important;
+  outline: none; flex: 1; font-weight: 700;
+}
+.mp-input::placeholder { color: #9aa3af; font-weight: 500; }
+.mp-hint { color: var(--mp-dim); display: block; margin-top: 4px; }
+
+/* Summary card */
+.mp-summary { background: #fafafa; border: 1px solid var(--mp-line); }
+.mp-summary__title { font-weight: 800; margin-bottom: 8px; }
+.order-summary ul { gap: 6px; }
+.order-summary li.divider { height: 1px; background: var(--mp-line); margin: 6px 0; }
+
+/* Actions */
+.mp-actions { margin-top: 12px; }
+
+.mp-pay {
+  background: var(--saf-green)!important;
+  color: #fff;
+  border: none;
+  box-shadow: 0 6px 20px rgba(0, 168, 89, .28);
+}
+.mp-pay:hover { background: var(--saf-green-dark)!important;}
+.mp-pay:disabled {
+  background: #bdeece; color: #094d2a;
+  cursor: not-allowed; box-shadow: none;
 }
 
-.modal .input {
-  margin-top: 6px;
-  margin-bottom: 14px;
+/* Help link */
+.mp-help { margin-top: 12px; font-size: .9rem; color: var(--mp-dim); }
+.mp-link {
+  color: var(--saf-green);
+  background: transparent; border: none; padding: 0;
+  text-decoration: underline; font-weight: 700; cursor: pointer;
+}
+/* ---- High-contrast text + surfaces for M-PESA modal ---- */
+.saf-theme {
+  --mp-ink: #0b1220;     /* darker body text */
+  --mp-dim: #3b4557;     /* less faded secondary */
+  --mp-line: #cbd5e1;    /* stronger divider */
 }
 
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+/* Use ink for most copy */
+.modal.mpesa,
+.modal.mpesa .muted,
+.modal.mpesa .mp-intro,
+.modal.mpesa .ref-contact {
+  color: var(--mp-ink);
+}
+
+/* Header subline stays secondary but not washed out */
+.modal.mpesa .mp-secure { color: var(--mp-dim); }
+
+/* Inputs: white surface, crisp border, dark text */
+.modal.mpesa .mp-inputwrap {
+  background: #fff;
+  border-color: var(--mp-line);
+}
+.modal.mpesa .mp-input {
+  color: var(--mp-ink);
+}
+.modal.mpesa .mp-input::placeholder {
+  color: #6b7280; /* darker placeholder */
+}
+
+/* Labels & section titles: higher weight and ink color */
+.modal.mpesa .mp-label,
+.modal.mpesa .mp-summary__title {
+  color: var(--mp-ink);
+  font-weight: 800;
+}
+
+/* Summary card: white (not grey) so text pops */
+.modal.mpesa .mp-summary {
+  background: #fff;
+  border-color: var(--mp-line);
   margin-top: 10px;
+  padding: 8px;
 }
 
-.order-summary {
-  margin: 16px 0;
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--r-12);
-  background: var(--surface-1);
-}
+/* Order list and dividers a bit stronger */
+.modal.mpesa .order-summary li { color: var(--mp-ink); }
+.modal.mpesa .order-summary li.divider { background: var(--mp-line); }
 
-.order-summary ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.order-summary li {
-  display: flex;
-  justify-content: space-between;
-  margin: 6px 0;
-}
-
-.order-summary .total {
-  font-weight: 700;
-}
+/* Help line and link: readable by default */
+.modal.mpesa .mp-help { color: var(--mp-ink); }
+.modal.mpesa .mp-link { color: var(--saf-green); }

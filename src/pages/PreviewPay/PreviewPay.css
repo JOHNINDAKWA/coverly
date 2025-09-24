@@ -1,119 +1,228 @@
-.preview h2 {
-  margin-bottom: 20px;
+/* Container */
+.pp__container{
+  width: min(1200px, 94vw);
+  margin-inline: auto;
+  padding: 18px 0 36px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  color: var(--text, #0f172a);
 }
 
-.pay-box {
-  margin-top: 32px;
-  padding: 24px;
-  border: 1px solid var(--border);
-  border-radius: var(--r-16);
-  background: var(--panel);
-  box-shadow: var(--shadow);
+/* Header */
+.pp__head{ 
+  display:flex; align-items:center; justify-content:space-between; 
+  margin-bottom: 14px;
+}
+.pp__head-left{ display:flex; align-items:center; gap:10px; }
+.pp__head-icon{ width:26px; height:26px; color: var(--brand-600, #6366f1); }
+.pp__title{ margin:0; font-weight:800; letter-spacing:-0.012em; }
+.pp__subtitle{ margin:2px 0 0; color: var(--text-dim, #667085); }
+
+/* Grid: preview left, sticky pay right */
+.pp__grid{
+  display:grid;
+  gap: 16px;
+}
+@media (min-width: 1024px){
+  .pp__grid{ grid-template-columns: 1.25fr 0.75fr; }
+}
+
+/* Preview card */
+.pp__doccard{
+  background: var(--panel, #fff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 16px;
+  box-shadow: 0 6px 28px rgba(0,0,0,.06);
+  padding: 10px;        /* slight breathing room around embedded preview */
+  overflow: hidden;     /* keep PdfPreview tidy */
+}
+
+/* Pay card (sticky) */
+.pp__right{ position: relative; }
+@media (min-width: 1024px){
+  .pp__paycard{ position: sticky; top: 14px; }
+}
+.pp__paycard{
+  background: var(--panel, #fff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 16px;
+  box-shadow: 0 10px 32px rgba(0,0,0,.08);
+  padding: 18px;
+}
+
+.pp__price-row{
+  display:flex; align-items:center; justify-content:space-between; gap: 10px;
+  margin-bottom: 8px;
+}
+.pp__pay-title{ margin: 0 0 2px; font-size: 1.2rem; font-weight: 800; }
+.pp__muted{ color: var(--text-dim, #667085); margin: 0; }
+.pp__shield{ width: 26px; height: 26px; color: #16a34a; }
+
+/* Benefits list */
+.pp__points{
+  list-style: none;
+  margin: 10px 0 14px; padding: 0;
+  display: grid; gap: 6px;
+  color: #0f172a;
+}
+.pp__points li{
+  display:flex; align-items:center; gap: 8px;
+  font-weight: 600;
+}
+.pp__points svg{ flex-shrink: 0; }
+
+/* Buttons */
+.pp__buttons{ display:grid; gap: 10px; }
+.pp__btn{
+  width: 100%;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 16px;
+  font-weight: 800;
+  border-radius: 12px;
+}
+
+/* Mpesa button */
+.pp__btn-mpesa{
+  width: 100%;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  background: #5cb85c;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .2s ease, transform .06s ease;
+}
+.pp__btn-mpesa img{ width: 20px; height: auto; }
+.pp__btn-mpesa:hover{ background:#4cae4c; transform: translateY(-1px); }
+.pp__btn-mpesa:active{ background:#449d44; transform: translateY(0); }
+
+.pp__safe{
+  margin-top: 10px;
+  font-size: .9rem;
+  color: var(--text-dim, #667085);
   text-align: center;
 }
 
-.pay-box h3 {
-  font-size: 1.4rem;
-  margin-bottom: 8px;
-}
-
-.pay-box .muted {
-  margin-bottom: 20px;
-}
-
-.pay-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-  margin-bottom: 16px;
-}
-
-.pay-btn {
-  min-width: 200px;
-  font-size: 1rem;
-  padding: 12px 18px;
-  justify-content: center;
-}
-
-.safe-note {
-  font-size: 0.85rem;
-  color: var(--text-dim);
-}
-
-
-/* Mpesa button styling */
-.mpesa-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 20px;
-  min-width: 220px;
-  border: none;
-  border-radius: 6px;
-  background: #5cb85c; /* Mpesa green */
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background .2s ease, transform .08s ease;
-}
-
-.mpesa-btn img {
-  width: 20px;
-  height: auto;
-}
-
-.mpesa-btn:hover {
-  background: #4cae4c;
-  transform: translateY(-1px);
-}
-
-.mpesa-btn:active {
-  background: #449d44;
-  transform: translateY(0);
-}
-/* Modal overlay */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Keep your existing modal styles below if they live in this file */
+.modal-overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.6);
+  display:flex; align-items:center; justify-content:center;
   z-index: 1000;
 }
-
-/* Modal window */
-.modal {
-  background: var(--panel);
-  border-radius: var(--r-16);
+.modal{
+  background: var(--panel, #fff);
+  border-radius: 16px;
   padding: 24px;
-  width: min(400px, 92%);
-  box-shadow: var(--shadow-strong);
+  width: min(420px, 92%);
+  box-shadow: 0 16px 40px rgba(0,0,0,.2);
 }
-
-.modal h3 {
-  margin-bottom: 12px;
-}
-
-.modal .muted {
-  margin-bottom: 16px;
-}
-
-.modal .input {
+.modal h3{ margin-bottom: 10px; }
+.modal .muted{ margin-bottom: 12px; color: var(--text-dim, #667085); }
+.modal .input{
   width: 100%;
   margin-bottom: 12px;
   padding: 10px;
-  border-radius: var(--r-12);
-  border: 1px solid var(--border);
-  background: var(--surface-1);
+  border-radius: 12px;
+  border: 1px solid var(--border, #e2e8f0);
+  background: #f7fafc;
+}
+.modal-actions{ display:flex; justify-content:flex-end; gap: 12px; margin-top: 8px; }
+
+
+/* Thin, subtle scrollbars (scoped to Preview & Pay) */
+.pp, .pp__doccard {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,.25) transparent;
 }
 
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
+/* WebKit (Chrome, Edge, Safari) */
+.pp::-webkit-scrollbar,
+.pp__doccard::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important; /* for any horizontal bars */
+}
+
+.pp::-webkit-scrollbar-track,
+.pp__doccard::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pp::-webkit-scrollbar-thumb,
+.pp__doccard::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.25) !important;
+  border-radius: 999px !important;
+  border: 2px solid transparent !important;           /* creates a slimmer look */
+  background-clip: padding-box;
+}
+
+.pp::-webkit-scrollbar-thumb:hover,
+.pp__doccard::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,.35);
+}
+
+.pp__doccard {
+  overflow: auto;       /* ensure the preview area scrolls inside the card */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* If you ever see a horizontal bar in the preview, hide it: */
+.pp__doccard { overflow-x: hidden; }
+
+
+/* ---------- Payment loading overlay ---------- */
+.pp__loading {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45); /* subtle dark veil */
+  backdrop-filter: blur(3px);
+  display: grid;
+  place-items: center;
+  z-index: 1200;
+}
+
+.pp__loader {
+  display: inline-flex;
+  align-items: center;
   gap: 12px;
-  margin-top: 8px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-strong);
+  font-weight: 700;
+}
+
+.pp__spinner {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--brand-600, #6366f1);
+  border-right-color: var(--teal-600, #0ea5a5);
+  animation: pp-spin .9s linear infinite;
+}
+
+@keyframes pp-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* animated ellipsis */
+.pp__dots {
+  color: var(--text, #0f172a);
+}
+.pp__dots span {
+  animation: pp-ellipsis 1.2s infinite;
+  display: inline-block;
+}
+.pp__dots span:nth-child(2) { animation-delay: .15s; }
+.pp__dots span:nth-child(3) { animation-delay: .3s; }
+
+@keyframes pp-ellipsis {
+  0%   { opacity: .25; transform: translateY(0); }
+  50%  { opacity: 1;   transform: translateY(-1px); }
+  100% { opacity: .25; transform: translateY(0); }
 }

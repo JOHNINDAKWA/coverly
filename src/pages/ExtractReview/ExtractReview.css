@@ -34,6 +34,7 @@
   border-radius: var(--r-16);
   box-shadow: var(--shadow);
   padding: 14px;
+  margin-bottom: 8px;
 }
 
 /* snapshot */
@@ -140,6 +141,21 @@
   background: var(--surface-1);
   border-radius: var(--r-14);
   padding: 10px;
+}
+
+.two{
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.two label{
+  width: 100%;
+}
+
+.job-card button{
+  margin-top: 6px;
 }
 .row {
   display: grid;
